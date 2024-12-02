@@ -158,18 +158,12 @@
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(feature = "std")]
 mod parse;
 
-#[cfg(not(feature = "std"))]
-use core::ops::{Div, Neg};
-
-#[cfg(feature = "std")]
-use std::{
+use core::{
     fmt,
     ops::{Div, Neg},
 };
-
 
 /// A numeric prefix, either binary or decimal.
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
@@ -238,7 +232,6 @@ pub enum Prefix {
     /// The binary version of _yotta_.
     Yobi,
 }
-
 
 /// The result of trying to apply a prefix to a floating-point value.
 #[derive(PartialEq, Eq, Clone, Debug)]
@@ -330,7 +323,6 @@ impl<F: Amounts> NumberPrefix<F> {
     }
 }
 
-#[cfg(feature = "std")]
 impl fmt::Display for Prefix {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.symbol())
@@ -499,7 +491,6 @@ impl Amounts for f64 {
         self.is_sign_negative()
     }
 }
-
 
 #[cfg(test)]
 mod test {

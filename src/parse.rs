@@ -1,7 +1,6 @@
-use std::{error::Error, fmt, str};
+use core::{fmt, str};
 
 use super::{NumberPrefix, Prefix};
-
 
 impl<T: str::FromStr> str::FromStr for NumberPrefix<T> {
     type Err = NumberPrefixParseError;
@@ -44,7 +43,6 @@ impl<T: str::FromStr> str::FromStr for NumberPrefix<T> {
     }
 }
 
-
 /// The error returned when a `NumberPrefix` is failed to be parsed.
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct NumberPrefixParseError(());
@@ -55,8 +53,8 @@ impl fmt::Display for NumberPrefixParseError {
     }
 }
 
-impl Error for NumberPrefixParseError {}
-
+#[cfg(feature = "std")]
+impl std::error::Error for NumberPrefixParseError {}
 
 #[cfg(test)]
 mod test {
